@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	}
 
 	srand(static_cast<unsigned int>(time(nullptr)));
-
+ 
 	GameWorld* gw = createStudentWorld(assetDirectory);
 	Game().run(argc, argv, gw, "IceMan");
 }
