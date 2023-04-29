@@ -57,6 +57,7 @@ The GraphObject class provides the following methods that you may use in your cl
     void setDirection(DIRECTION d);    // Directions: up, down, left, right
 ```
 You may use any of these methods in your derived classes, but you must not use any other methods found inside of GraphObject in your other classes (even if they are public in our class). You must not redefine any of these methods in your derived classes since they are not defined as virtual in our base class.
+
 ```cpp
 GraphObject(
     int imageID,
