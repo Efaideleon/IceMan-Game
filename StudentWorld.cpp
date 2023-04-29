@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-GameWorld* createStudentWorld(string assetDir)
+GameWorld *createStudentWorld(string assetDir)
 {
 	return new StudentWorld(assetDir);
 }
