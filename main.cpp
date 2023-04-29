@@ -18,7 +18,7 @@ GameWorld* createStudentWorld(string assetDir = "");
 
 int main(int argc, char* argv[])
 {
-	cout << "started :D" << endl;
+	cout << "started :D efai made this change" << endl;
 	{
 		string path = assetDirectory;
 		if (!path.empty())
