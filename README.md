@@ -101,3 +101,31 @@ When you construct a new GraphObject, you must specify the following parameters:
 
 5. You must specify the depth of the image. This value indicates whether the image is in the foreground (`0`), in the background (`10`) or somewhere in between. If two images are displayed at the same location, the graph object with the smaller depth value will be drawn on top of the graph object with the larger depth value, either partially or completely obscuring it. We will specify what the depth should be for each of your GraphObject-derived classes in the sections below.
 
+`setVisible(bool shouldIDisplay)`
+
+New `GraphObjects` start out invisible and are NOT displayed on the screen until the programmer calls the `setVisible()` method with a value of `true` for the parameter.
+
+`setVisible(bool shouldIDisplay)` is used to tell our graphical system whether or not to display a particular `GraphObject` on the screen. If you call `setVisible(true)` on a `GraphObject`, then your object will be displayed on screen automatically by our framework (e.g., a Regular Protester image will be drawn to the screen at the `GraphObject’s` specified `x,y` coordinates if the object’s `imageID` is `IID_PROTESTER`). If you call `setVisible(false)` then your `GraphObject` will not be displayed on the screen.
+
+NOTE: When you create a new game object, always remember that if you want it to be displayed on the screen, you must call its `setVisible()` method with a value of `true`!
+
+`int getX() const`
+`int getY() const`
+
+These methods are used to determine a `GraphObject’s` current location on the screen. Since each `GraphObject` maintains an `x,y` location, this means that your derived classes must not also have `x,y` member variables, but instead use those in the `GraphObject` base class.
+
+`void moveTo(int x, int y)`
+
+The `moveTo()` method must be used to update the location of a `GraphObject` within the oil field. For example, if a Regular Protester’s movement logic dictates that it should move to the right, you must do something like the following:
+
+`moveTo(getX()+1, y);` // move one square to the right
+
+You must use the `moveTo()` method to adjust the location of a `GameObject` in the game if you want that object to be properly animated. As with the `GraphObject` constructor, note that the order of the parameters to `moveTo` is `x,y` (col,row) and NOT `y,x` (row,col).
+
+`DIRECTION getDirection() const`
+`void setDirection(DIRECTION d)`
+
+These two methods are used to get and set the current direction the `GraphObject` is facing. Valid values include `up`, `down`, `left`, and `right`. Changing the direction causes our graphics engine to automatically rotate the image appropriately before displaying it on the screen.
+
+Now that you know about our `GraphObject` base class, you’ll need to derive all of your game object classes based on this class (either directly, or indirectly).
+
