@@ -1,4 +1,24 @@
 # IceMan-Game
+Introduction
+============
+
+ElCo corporate spies have learned that SanMo is planning to release a new game, called *Iceman*, and would like you to program an exact copy so ElCo can beat SanMo to the market. To help you, ElCo corporate spies have managed to steal a prototype *Iceman* executable file and several source files from the SanMo headquarters, so you can see exactly how your version of the game must work (see posted executable file) and even get a head start on the programming. Of course, such behavior would never be appropriate in real life, but for this project, you'll be a programming villain.
+
+In *Iceman*, the player has to dig underground tunnels through an oil field looking for oil. After the player has gathered all available oil within a particular field, the level is completed and the player advances to a new, more difficult oil field.
+
+Here is an example of what the *Iceman* game looks like:
+
+![Figure #1: A screenshot of the Iceman game.](https://github.com/username/repository/blob/master/img/iceman.png)
+
+You can see the *Iceman* (upper-right), two *Hardcore Protesters* in light blue (*Regular Protesters*, here not shown, are in dark blue, and one *Hardcore Protester* in light blue), several *Boulders*, two water pools, a sonar kit, a discovered *Barrel of oil*, and a discovered *Gold Nugget*.
+
+Game Details
+============
+
+In *Iceman*, the player starts out a new game with three lives and continues to play until all of his/her lives have been exhausted. There are multiple levels in *Iceman*, beginning with level 0, and each level has its own unique oil field configuration. During each level, the *Iceman* (controlled by the player) must dig and find all of the oil hidden within the oil field in order to move on to the next level.
+
+Upon starting each level, the player's *Iceman* avatar (a miner) is placed at the top-middle of the oil field just above the tunnel. Every time the player starts (or re-starts) a level, the *Iceman* is restored to 100% health, given fresh water for their squirt gun (enough for 5 squirts), and given a single sonar charge that they can use to search for nearby items within the ice. Each oil field has a number of *Boulders*, *Gold Nuggets*, and *Barrels* of oil randomly distributed throughout the field. Only the *Boulders* will be visible initially -- the other items must be discovered by the *Iceman* before they become visible. The player must use the arrow keys to move the *Iceman* left, right, up and down through the oil field; the *Iceman* digs through any ice in the direction of motion. The *Iceman* may move/dig anywhere in the oil field except for locations occupied by *Boulders*.
+
 ## You Have to Create Classes for All Actors
 
 The Iceman game has a number of different Game Objects, including:
