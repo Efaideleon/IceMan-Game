@@ -57,3 +57,76 @@ The GraphObject class provides the following methods that you may use in your cl
     void setDirection(DIRECTION d);    // Directions: up, down, left, right
 ```
 You may use any of these methods in your derived classes, but you must not use any other methods found inside of GraphObject in your other classes (even if they are public in our class). You must not redefine any of these methods in your derived classes since they are not defined as virtual in our base class.
+
+GraphObject(
+
+int imageID,\
+int startX,\
+int startY,\
+DIRECTION startDirection, float size = 1.0,
+
+};
+
+unsigned int depth = 0 )
+
+When you construct a new GraphObject, you must specify the following parameters:
+
+1\. An imageID that indicates what graphical image (aka sprite) our graphics engine should display on the screen. One of the following IDs, found in GameConstants.h, MUST be passed in for the imageID value:
+
+IID_PLAYER
+
+IID_PROTESTER
+
+IID_HARD_CORE_PROTESTER
+
+IID_WATER_SPURT
+
+IID_BOULDER
+
+IID_BARREL
+
+IID_ICE
+
+IID_GOLD
+
+IID_SONAR
+
+IID_WATER_POOL
+
+// for the Iceman\
+// a regular protester\
+// a hardcore protester\
+// for a squirt of water from the Iceman
+
+// a barrel of oil
+
+// a 1x1 square of ice
+
+// a gold nugget
+
+// a sonar kit
+
+// a water pool to refill the squirt gun
+
+2\. You must specify the initial x,y location of the object. The x value may range from 0 to VIEW_WIDTH-SPRITE_WIDTH inclusive, and the y value may range from 0 to VIEW_HEIGHT-SPRITE_HEIGHT inclusive. Notice that you pass the coordinates as x,y (i.e., column, row and not row, column.).
+
+3\. You must specify the initial direction that each game object will be facing. Acceptable values include: up, down, left, and right. The definitions for these values may be found in the GraphObject class within GraphObject.h.
+
+4\. You must specify the size of the image. Most images (e.g., Protesters, Gold Nuggets, the Iceman, etc.) will have a size of 1.0, which is the equivalent of a 4 squares by 4 squares on the screen. In contrast, Ice will always have a size of .25 making it 1 square by 1 square.
+
+5\. You must specify the depth of the image. This value indicates whether the image is in the foreground (0), in the background (10) or somewhere in between. If two images are displayed at the same location, the graph object with the smaller depth value will be drawn on top of the graph object with the larger depth value, either partially or completely obscuring it. We will specify what the depth should be for each of your GraphObject-derived classes in the sections below.
+
+setVisible(bool shouldIDisplay)\
+New GraphObjects start out invisible and are NOT displayed on the screen until the
+
+programmer calls the setVisible() method with a value of true for the parameter. 25
+
+setVisible(bool shouldIDisplay) is used to tell our graphical system whether or not to display a particular GraphObject on the screen.
+
+If you call setVisible(true) on a GraphObject, then your object will be displayed on screen automatically by our framework (e.g., a Regular Protester image will be drawn to the screen at the GraphObject's specified x,y coordinates if the object's imageID is IID_PROTESTER). If you call setVisible(false) then your GraphObject will not be displayed on the screen.
+
+NOTE: When you create a new game object, always remember that if you want it to be displayed on the screen, you must call its setVisible() method with a value of true!
+
+int getX() const int getY() const
+
+These methods are used to determine a GraphObject's current location on the screen. Since each GraphObject maintains an x,y location, this means that your derived classes must not also have x,y member variables, but instead use those in the GraphObject base class.
