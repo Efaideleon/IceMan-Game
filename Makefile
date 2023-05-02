@@ -14,7 +14,7 @@ HEADERS = $(wildcard *.h)
 all: IceMan
 
 %.o: %.cpp $(HEADERS)
-	$(CC) -c -std=c++11 $< -o $@ 
+	$(CC) -c -std=c++11 $< -o $@ -Wno-deprecated-declarations
 
 IceMan: $(OBJECTS) 
 	$(CC) $(RPATH) $(OBJECTS) $(LIBS) -o $@
