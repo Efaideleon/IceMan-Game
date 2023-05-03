@@ -40,12 +40,16 @@ public:
 	{
 	}
 
+	// Helper Logic Functions:
+	bool overlapsWithIce(Actor *a);
+	void removeIce(Actor *a);
 private:
 	// Private Member Variables:
 	Actor *m_iceMan;
 	std::vector<Actor *> m_actors;
 	std::vector<Actor *> m_ice;
 	// Private Helper Functions:
+	// load functions:
 	void createIceMan(StudentWorld *world_in);
 	void loadIce(StudentWorld *world_in);
 	void loadRegularProtester(StudentWorld *world_in);  // TO-DO: Implement this function, probably in move()

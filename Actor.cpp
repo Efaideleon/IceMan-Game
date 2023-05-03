@@ -10,11 +10,25 @@ public:
     IceMan(int startX, int startY, StudentWorld *world_in)
         : Actor(IID_PLAYER, startX, startY, right, 1.0, 0, world_in)
     {
+        m_hitPoints = 10;
+        m_water = 5;
+        m_sonar = 1;
+        m_gold = 0;
+        m_alive = true;
     }
     ~IceMan() {}
     void doSomething()
     {
-        // Handling the user input to move the IceMan
+        // Check to see if it is currently alive
+        if (!m_alive)
+            return;
+        // Check to see if IceMan overlaps with Ice
+        if (getWorld()->overlapsWithIce(this))
+        {
+            // If so, break the ice
+            getWorld()->removeIce(this);
+        }
+        //Handling the user input to move the IceMan
         int ch;
         if (getWorld()->getKey(ch) == true)
         {
@@ -59,6 +73,12 @@ public:
             }
         }
     }
+private:
+    int m_hitPoints;
+    int m_water;
+    int m_sonar;
+    int m_gold;
+    bool m_alive;
 };
 
 class Ice : public Actor
