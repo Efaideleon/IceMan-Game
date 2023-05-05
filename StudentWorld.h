@@ -19,20 +19,7 @@ public:
 	}
 
 	// About: This functions initializes the game world.
-	virtual int init()
-	{
-		// The following functions load the sprites into the game:
-		createIceMan(this);
-		loadIce(this);
-		loadRegularProtester(this);
-		loadHardcoreProtester(this);
-		loadBarrelOfOil(this);
-		loadBoulder(this);
-		loadGold(this);
-		loadSonarKit(this);
-		loadWaterPool(this);
-		return GWSTATUS_CONTINUE_GAME;
-	}
+	virtual int init();
 
 	virtual int move();
 
@@ -43,12 +30,15 @@ public:
 	// Helper Logic Functions:
 	bool overlapsWithIce(Actor *a);
 	void removeIce(Actor *a);
+	IceMan *getIceMan();
+	void removeDeadGameObjects();
 private:
 	// Private Member Variables:
-	Actor *m_iceMan;
+	IceMan *m_iceMan;
 	std::vector<Actor *> m_actors;
 	std::vector<Actor *> m_ice;
 	// Private Helper Functions:
+	void updateDisplayText();
 	// load functions:
 	void createIceMan(StudentWorld *world_in);
 	void loadIce(StudentWorld *world_in);
