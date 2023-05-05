@@ -28,7 +28,7 @@ public:
             // If so, break the ice
             getWorld()->removeIce(this);
         }
-        //Handling the user input to move the IceMan
+        // Handling the user input to move the IceMan
         int ch;
         if (getWorld()->getKey(ch) == true)
         {
@@ -73,6 +73,33 @@ public:
             }
         }
     }
+    // Mutators
+    void increaseGoldNuggetCount()
+    {
+        m_gold++;
+    }
+
+    // Accessors
+    int getHitPoints()
+    {
+        return m_hitPoints;
+    }
+
+    int getWater()
+    {
+        return m_water;
+    }
+
+    int getSonar()
+    {
+        return m_sonar;
+    }
+
+    int getGold()
+    {
+        return m_gold;
+    }
+
 private:
     int m_hitPoints;
     int m_water;
@@ -99,11 +126,65 @@ class RegularProtester : public Actor
 {
 public:
     RegularProtester(int startX, int startY, StudentWorld *world_in)
-        : Actor(IID_PROTESTER, startX, startY, right, 1.0, 0, world_in)
+        : Actor(IID_PROTESTER, startX, startY, left, 1.0, 0, world_in)
     {
+        numSquaresToMoveInCurrentDirection = 8 + rand() % 53; // Random number between 8 and 60, !Could cause bug?!
+        ticksToWaitBetweenMoves = std::max(0, (3) - (0 / 4)); // TO-DO: Implement this formula, 0 is the current level
+        hitPoints = 5;
+        restingTickCount = 0;
+        alive = true;
+        leaveOilField = false;
+        resting = false;
     }
     ~RegularProtester() {}
-    void doSomething() {}
+    void doSomething()
+    {
+        if (!isAlive())
+            return;
+
+        if (resting)
+        {
+            updateRestingTickCount();
+            return;
+        }
+
+        std::cout << "Regular Protester is doing something!" << std::endl;
+        setRestingTickCount();
+    }
+
+    void setRestingTickCount()
+    {
+        restingTickCount = ticksToWaitBetweenMoves;
+        resting = true;
+    }
+
+    void updateRestingTickCount()
+    {
+        restingTickCount--;
+        if(restingTickCount <= 0)
+            resting = false;
+    }
+
+    // Accessors
+    bool isAlive()
+    {
+        return alive;
+    }
+
+    // Mutators
+    void setDead()
+    {
+        alive = false;
+    }
+
+private:
+    int numSquaresToMoveInCurrentDirection;
+    int hitPoints;
+    bool leaveOilField;
+    int ticksToWaitBetweenMoves;
+    bool alive;
+    int restingTickCount;
+    bool resting;
 };
 
 class HardCoreProtester : public Actor
@@ -170,7 +251,24 @@ public:
     {
     }
     ~GoldNugget() {}
-    void doSomething() {}
+    void doSomething()
+    {
+        if ((abs(m_world->getIceMan()->getX() - getX()) <= 4 &&
+             abs(m_world->getIceMan()->getY() - getY()) <= 4) &&
+            isVisible() == false)
+        {
+            setVisible(true);
+        }
+
+        if (abs(m_world->getIceMan()->getX() - getX()) <= 3 &&
+            abs(m_world->getIceMan()->getY() - getY()) <= 3)
+        {
+            setDead();
+            std::cout << "GoldNugget picked up" << std::endl;
+            // TO-DO: Increase the IceMan's gold nugget count
+            m_world->getIceMan()->increaseGoldNuggetCount();
+        }
+    }
 
 private:
     // TO-DO: Add the correct member variables
