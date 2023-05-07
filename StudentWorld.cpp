@@ -205,16 +205,16 @@ void StudentWorld::updateDisplayText()
 {
 	int level = getLevel();
 	int lives = getLives();
-	//TO-DO: health is by percentage
+	// TO-DO: health is by percentage
 	int health = m_iceMan->getHitPoints();
 	int water = m_iceMan->getWater();
 	int gold = m_iceMan->getGold();
 	int sonar = m_iceMan->getSonar();
-	//TO-DO: get oil left
+	// TO-DO: get oil left
 	int oilLeft = 1;
-	string game_stats_text = "Lvl: " + std::to_string(level) + " Lives: " + std::to_string(lives) + 
-							 " Hlth: " + std::to_string(health) + " Wtr: " + std::to_string(water) + 
-							 " Gld: " + std::to_string(gold) + " Sonar: " + std::to_string(sonar) + 
+	string game_stats_text = "Lvl: " + std::to_string(level) + " Lives: " + std::to_string(lives) +
+							 " Hlth: " + std::to_string(health) + " Wtr: " + std::to_string(water) +
+							 " Gld: " + std::to_string(gold) + " Sonar: " + std::to_string(sonar) +
 							 " Oil Left: " + std::to_string(oilLeft);
 	setGameStatText(game_stats_text);
 }
@@ -226,4 +226,7 @@ GameWorld *createStudentWorld(string assetDir)
 	return gw;
 }
 
+
+
 // Students:  Add code to this file (if you wish), StudentWorld.h, Actor.h and Actor.cpp
+

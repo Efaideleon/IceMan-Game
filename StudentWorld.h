@@ -32,6 +32,20 @@ public:
 	void removeIce(Actor *a);
 	IceMan *getIceMan();
 	void removeDeadGameObjects();
+
+	/*****************************************/
+	/*********** Maze Solver Class ***********/
+	/*****************************************/
+	class MazeSolver
+	{
+	public:
+		MazeSolver(int x, int y, StudentWorld *world_in);
+		~MazeSolver();
+		void solveMaze();
+	private:
+
+	};
+	
 private:
 	// Private Member Variables:
 	IceMan *m_iceMan;
@@ -42,14 +56,14 @@ private:
 	// load functions:
 	void createIceMan(StudentWorld *world_in);
 	void loadIce(StudentWorld *world_in);
-	void loadRegularProtester(StudentWorld *world_in);  // TO-DO: Implement this function, probably in move()
+	void loadRegularProtester(StudentWorld *world_in);	// TO-DO: Implement this function, probably in move()
 	void loadHardcoreProtester(StudentWorld *world_in); // TO-DO: Implement this function, probably in move()
 	void loadBoulder(StudentWorld *world_in);
 	void loadGold(StudentWorld *world_in);
 	void loadBarrelOfOil(StudentWorld *world_in);
 	void loadSonarKit(StudentWorld *world_in);
 	void loadWaterPool(StudentWorld *world_in); // TO-DO: Implement this function, probably in move()
-	void loadSquirt(StudentWorld *world_in);	  // TO-DO: Implement this function, probably in move(). Should be called by the IceMan?
+	void loadSquirt(StudentWorld *world_in);	// TO-DO: Implement this function, probably in move(). Should be called by the IceMan?
 };
 
 #endif // STUDENTWORLD_H_

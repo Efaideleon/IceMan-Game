@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "StudentWorld.h"
 #include <iostream>
+#include <thread>
 //==========================================
 // Class for each Sprite/Object in the game:
 //==========================================
@@ -132,15 +133,20 @@ public:
         ticksToWaitBetweenMoves = std::max(0, (3) - (0 / 4)); // TO-DO: Implement this formula, 0 is the current level
         hitPoints = 5;
         restingTickCount = 0;
-        alive = true;
         leaveOilField = false;
         resting = false;
     }
     ~RegularProtester() {}
     void doSomething()
-    {
+    { // All functions include a isAlive() check and setDead()
         if (!isAlive())
             return;
+
+        if (atExit())
+        {
+            setDead();
+            return;
+        }
 
         if (resting)
         {
@@ -148,11 +154,62 @@ public:
             return;
         }
 
-        std::cout << "Regular Protester is doing something!" << std::endl;
-        setRestingTickCount();
+        setLeaveOilField();
+        // if the regular protester is leaving the oil field
+        if (true)
+        {
+            // NOTE: There must be an if statement to check if the shortest path has been found
+            // TO-DO: Implement this
+            if (!thread_started)
+            {
+                startThread();
+                thread_started = true;
+            }
+            if(thread_isFinished)
+            {
+                stopThread();
+                thread_started = false;
+            }
+            // NOTE: This is where finding the exit and moving towards it will be implemented
+            return;
+        }
+        resetRestingTickCount();
     }
 
-    void setRestingTickCount()
+private:
+    void findPathToExit()
+    {
+        // TO-DO: Implement this
+        // NOTE: This where find the path to exit using BFS will be implemented
+        // NOTE: This should use a seperate data structure
+        // IDEA: First figure out the shortest path
+        // IDEA: Then move the protester along the shortest path
+        
+        StudentWorld::MazeSolver maze_solver(getX(), getY(), m_world);
+        
+        for (int i = 0; i < 30; i++)
+        {
+            moveTo(getX() + 1, getY());
+            std::cout << "finding path to exit" << std::endl;   
+            // this 100 needs to be changed to a variable
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+        setDead();
+        thread_isFinished = true;
+    }
+
+    void startThread()
+    {
+        thread_isFinished = false;
+        worker = std::thread(&RegularProtester::findPathToExit, this);
+    }
+
+    void stopThread()
+    {
+        worker.join();
+    }
+
+    void resetRestingTickCount()
     {
         restingTickCount = ticksToWaitBetweenMoves;
         resting = true;
@@ -161,28 +218,31 @@ public:
     void updateRestingTickCount()
     {
         restingTickCount--;
-        if(restingTickCount <= 0)
+        if (restingTickCount <= 0)
             resting = false;
     }
 
-    // Accessors
-    bool isAlive()
+    bool atExit()
     {
-        return alive;
+        if (getX() == 60 && getY() == 60)
+            return true;
+        return false;
     }
 
-    // Mutators
-    void setDead()
+    void setLeaveOilField()
     {
-        alive = false;
+        if (hitPoints <= 0)
+            leaveOilField = true;
     }
 
-private:
+    // TO-DO: implement functions to decrease the protester's hit points
+    bool thread_isFinished;
+    bool thread_started;
+    std::thread worker;
     int numSquaresToMoveInCurrentDirection;
     int hitPoints;
     bool leaveOilField;
     int ticksToWaitBetweenMoves;
-    bool alive;
     int restingTickCount;
     bool resting;
 };
